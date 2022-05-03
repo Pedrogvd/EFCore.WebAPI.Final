@@ -29,7 +29,7 @@ namespace EFCore.Repositorio
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-       /*     optionsBuilder.UseSqlServer("Password=sa123456.;Persist Security Info=True;User ID=sa;Initial Catalog=HeroApp;Data Source=CPX-XT08NX9AP07");*/
+           optionsBuilder.UseSqlServer("Password=sa123456.;Persist Security Info=True;User ID=sa;Initial Catalog=HeroApp;Data Source=CPX-XT08NX9AP07");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
