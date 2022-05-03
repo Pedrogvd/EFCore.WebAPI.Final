@@ -13,7 +13,7 @@ namespace EFCore.WebAPI.Final.Data
         public DbSet<Heroi> Herois { get; set; }
 
         public DbSet<Batalha> Batalhas { get; set; }
-
+    
         public DbSet<Arma> Armas { get; set; }
 
         public DbSet<HeroiBatalha> HeroisBatalhas { get; set; }
@@ -24,6 +24,22 @@ namespace EFCore.WebAPI.Final.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Password=sa123456.;Persist Security Info=True;User ID=sa;Initial Catalog=HeroApp;Data Source=CPX-XT08NX9AP07");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<HeroiBatalha>(entity =>
+            {
+                /*pra desabilitar a exclusão em cascata*/
+               foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+                {
+                    relationship.DeleteBehavior = DeleteBehavior.Restrict;
+                }
+
+                entity.HasKey(e => new { e.BatalhaId, e.HeroiId });
+
+            });
+
         }
 
     }
