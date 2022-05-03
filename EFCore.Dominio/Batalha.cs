@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EFCore.WebAPI.Final.Models
+namespace EFCore.Dominio
 {
     public class Batalha
     {
