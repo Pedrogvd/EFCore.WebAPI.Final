@@ -4,14 +4,16 @@ using EFCore.Repositorio;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCore.Repositorio.Migrations
 {
     [DbContext(typeof(HeroiContext))]
-    partial class HeroiContextModelSnapshot : ModelSnapshot
+    [Migration("20220503194619_testeHeroisBatalhas")]
+    partial class testeHeroisBatalhas
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -70,10 +72,15 @@ namespace EFCore.Repositorio.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
+                    b.Property<int?>("BatalhaId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BatalhaId");
 
                     b.ToTable("Herois");
                 });
@@ -123,6 +130,16 @@ namespace EFCore.Repositorio.Migrations
                         .IsRequired();
 
                     b.Navigation("Heroi");
+                });
+
+            modelBuilder.Entity("EFCore.Dominio.Heroi", b =>
+                {
+                    b.HasOne("EFCore.Dominio.Batalha", "Batalha")
+                        .WithMany()
+                        .HasForeignKey("BatalhaId")
+                        .OnDelete(DeleteBehavior.ClientCascade);
+
+                    b.Navigation("Batalha");
                 });
 
             modelBuilder.Entity("EFCore.Dominio.HeroiBatalha", b =>

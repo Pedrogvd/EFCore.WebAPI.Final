@@ -9,10 +9,10 @@ namespace EFCore.Repositorio
 {
     public class HeroiContext : DbContext
     {
-        public HeroiContext()
+       /* public HeroiContext()
         {
                 
-        }
+        }*/
 
         public HeroiContext(DbContextOptions<HeroiContext> options) : base(options) { }
 
@@ -27,19 +27,19 @@ namespace EFCore.Repositorio
         public DbSet<IdentidadeSecreta> IdentidadeSecretas { get; set; }
 
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+       /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            optionsBuilder.UseSqlServer("Password=sa123456.;Persist Security Info=True;User ID=sa;Initial Catalog=HeroApp;Data Source=CPX-XT08NX9AP07");
-        }
+        }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<HeroiBatalha>(entity =>
             {
-                /*pra desabilitar a exclusão em cascata*/
+                /*pra desabilitar a dependência em cascata*/
                foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
                 {
-                    relationship.DeleteBehavior = DeleteBehavior.Restrict;
+                    relationship.DeleteBehavior = DeleteBehavior.ClientCascade;
                 }
 
                 entity.HasKey(e => new { e.BatalhaId, e.HeroiId });

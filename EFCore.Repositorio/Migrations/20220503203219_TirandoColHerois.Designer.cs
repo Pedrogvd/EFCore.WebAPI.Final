@@ -4,14 +4,16 @@ using EFCore.Repositorio;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCore.Repositorio.Migrations
 {
     [DbContext(typeof(HeroiContext))]
-    partial class HeroiContextModelSnapshot : ModelSnapshot
+    [Migration("20220503203219_TirandoColHerois")]
+    partial class TirandoColHerois
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -134,7 +136,7 @@ namespace EFCore.Repositorio.Migrations
                         .IsRequired();
 
                     b.HasOne("EFCore.Dominio.Heroi", "Heroi")
-                        .WithMany("HeroisBatalhas")
+                        .WithMany()
                         .HasForeignKey("HeroiId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
@@ -163,8 +165,6 @@ namespace EFCore.Repositorio.Migrations
             modelBuilder.Entity("EFCore.Dominio.Heroi", b =>
                 {
                     b.Navigation("Armas");
-
-                    b.Navigation("HeroisBatalhas");
 
                     b.Navigation("IdentidadeSecreta");
                 });
