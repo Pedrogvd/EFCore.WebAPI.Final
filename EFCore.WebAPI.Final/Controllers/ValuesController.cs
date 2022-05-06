@@ -26,12 +26,14 @@ namespace EFCore.WebAPI.Final.Controllers
         // GET: api/<ValuesController>
         [HttpGet("filtro/{nome}")]
         public ActionResult GetFiltro(string nome)
+       
         {
             // linq method sem where -->  var listHeroi = _context.Herois.ToList();
             // linq query sem where --> var listHeroi = (from heroi in _context.Herois select heroi).ToList();
-            // linq method com where --> var listHeroi = _context.Herois.Where(h => h.Nome.Contains(nome)).ToList(); --> ps: nome é passado no parametro
+            // linq method com where -->
+            var listHeroi = _context.Herois.Where(h => h.Nome.Contains(nome)).ToList(); //--> ps: nome é passado no parametro
             // linq query com where --> var listHeroi = (from heroi in _context.Herois where heroi.Nome.Contains(nome) select heroi).ToList();
-            return Ok();
+            return Ok(listHeroi);
         }
 
         // GET api/<ValuesController>/5
